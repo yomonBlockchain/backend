@@ -1,0 +1,41 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AdminModule } from './admin/admin.module';
+import { AuthModule } from './auth/auth.module';
+import { CourseModule } from './course/course.module';
+import { DbModule } from './db/db.module';
+import { DbService } from './db/db.service';
+import { EventModule } from './event/event.module';
+import { GuardModule } from './guard/guard.module';
+import { KeeperModule } from './keeper/keeper.module';
+import { PatrolModule } from './patrol/patrol.module';
+import { PointModule } from './point/point.module';
+import { SectorModule } from './sector/sector.module';
+import { TrackModule } from './track/track.module';
+import { WorkinggroupModule } from './workinggroup/workinggroup.module';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      imports: [DbModule],
+      useClass: DbService,
+      inject: [DbService],
+    }),
+    KeeperModule,
+    GuardModule,
+    PatrolModule,
+    PointModule,
+    TrackModule,
+    EventModule,
+    AdminModule,
+    AuthModule,
+    SectorModule,
+    CourseModule,
+    WorkinggroupModule,
+  ],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
