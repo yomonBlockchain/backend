@@ -1,4 +1,10 @@
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsNumber,
+} from 'class-validator';
 import { POINT_TYPE } from '../../entity';
 
 export class CreatePointDto {
@@ -18,7 +24,7 @@ export class CreatePointDto {
   @IsNotEmpty()
   point_lon: string;
 
-  @IsString()
+  @IsNumber()
   @IsOptional()
   point_score?: number;
 
