@@ -1,4 +1,4 @@
-import { Keeper } from 'src/entity';
+import { Keeper } from '../entity';
 import { DataSource, EntitySubscriberInterface, InsertEvent } from 'typeorm';
 
 export class KeeperSubscriber implements EntitySubscriberInterface<Keeper> {

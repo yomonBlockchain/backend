@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -9,22 +10,17 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CreateWorkingGroupDto, UpdateWorkingGroupDto } from './dto';
-import { WorkinggroupService } from './workinggroup.service';
+import { CreateGroupDto, UpdateGroupDto } from './dto';
+import { GroupService } from './group.service';
 
-@Controller('workinggroup')
-export class WorkinggroupController {
-  constructor(private workinggroupService: WorkinggroupService) {}
+@Controller('group')
+export class GroupController {
+  constructor(private groupService: GroupService) {}
 
   @Post()
-  async createWorkingGroup(
-    @Res() res: Response,
-    workinggroupInfo: CreateWorkingGroupDto,
-  ) {
+  async createGroup(@Res() res: Response, @Body() groupInfo: CreateGroupDto) {
     try {
-      const result = await this.workinggroupService.createWorkingGroup(
-        workinggroupInfo,
-      );
+      const result = await this.groupService.createGroup(groupInfo);
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',
@@ -38,15 +34,30 @@ export class WorkinggroupController {
     }
   }
 
-  @Get(':course_id')
-  async getWorkingGroupList(
+  @Get()
+  async getGroupList(@Res() res: Response) {
+    try {
+      const result = await this.groupService.getGroupList();
+      return res.status(HttpStatus.OK).json({
+        status: HttpStatus.OK,
+        message: 'success',
+        data: result,
+      });
+    } catch (e) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: HttpStatus.BAD_REQUEST,
+        message: e.message,
+      });
+    }
+  }
+
+  @Get(':group_id')
+  async getWorkingGroupDetail(
     @Res() res: Response,
-    @Param('course_id') course_id: string,
+    @Param('group_id') group_id: string,
   ) {
     try {
-      const result = await this.workinggroupService.getWorkingGroupList(
-        course_id,
-      );
+      const result = await this.groupService.getGroupDetail(group_id);
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',
@@ -61,14 +72,9 @@ export class WorkinggroupController {
   }
 
   @Put()
-  async updateWorkingGroup(
-    @Res() res: Response,
-    workinggroupInfo: UpdateWorkingGroupDto,
-  ) {
+  async updateGroup(@Res() res: Response, @Body() groupInfo: UpdateGroupDto) {
     try {
-      const result = await this.workinggroupService.updateWorkingGroup(
-        workinggroupInfo,
-      );
+      const result = await this.groupService.updateGroup(groupInfo);
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',
@@ -82,15 +88,10 @@ export class WorkinggroupController {
     }
   }
 
-  @Delete(':workinggroup_id')
-  async deleteWorkingGroup(
-    @Res() res: Response,
-    @Param('workinggroup_id') workinggroup_id: string,
-  ) {
+  @Delete(':group_id')
+  async deleteGroup(@Res() res: Response, @Param('group_id') group_id: string) {
     try {
-      const result = await this.workinggroupService.deleteWorkingGroup(
-        workinggroup_id,
-      );
+      const result = await this.groupService.deleteGroup(group_id);
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',

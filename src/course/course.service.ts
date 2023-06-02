@@ -47,6 +47,11 @@ export class CourseService {
     }
   }
 
+  /**
+   * 코스 조회
+   * --
+   * @returns
+   */
   async getCourseList() {
     try {
       const course = await this.courseRepository.find();
@@ -60,6 +65,23 @@ export class CourseService {
       const track = Promise.all(trackPromise);
 
       return track;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
+   * 코스 상세 정보 조회
+   * --
+   * @param course_id
+   * @returns
+   */
+  async getCourseDetail(course_id: string) {
+    try {
+      const result = await this.courseRepository.findOneOrFail({
+        where: { course_id },
+      });
+      return result;
     } catch (e) {
       throw e;
     }

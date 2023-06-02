@@ -54,6 +54,26 @@ export class CourseController {
     }
   }
 
+  @Get(':course_id')
+  async getCourseDetail(
+    @Res() res: Response,
+    @Param('course_id') course_id: string,
+  ) {
+    try {
+      const result = await this.courseService.getCourseDetail(course_id);
+      return res.status(HttpStatus.OK).json({
+        status: HttpStatus.OK,
+        message: 'success',
+        data: result,
+      });
+    } catch (e) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: HttpStatus.BAD_REQUEST,
+        message: e.message,
+      });
+    }
+  }
+
   @Put()
   async updateCourse(
     @Res() res: Response,

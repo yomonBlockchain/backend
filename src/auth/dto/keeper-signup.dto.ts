@@ -22,6 +22,14 @@ export class KeeperSignUpDto {
   keeper_office: string;
 
   @IsString()
+  @IsNotEmpty()
+  keeper_position: string;
+
+  @IsString()
+  @IsNotEmpty()
+  keeper_ether_address: string;
+
+  @IsString()
   @IsOptional()
   keeper_region?: string;
 }

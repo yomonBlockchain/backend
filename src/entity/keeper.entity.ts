@@ -29,6 +29,12 @@ export class Keeper {
   @Column()
   keeper_office: string;
 
+  @Column()
+  keeper_position: string;
+
+  @Column()
+  keeper_ether_address: string;
+
   @CreateDateColumn()
   created_at: Date;
 

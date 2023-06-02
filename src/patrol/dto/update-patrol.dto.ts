@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { PATROL_STATUS } from '../../entity';
 
 export class UpdatePatrolDto {
   @IsString()
@@ -24,4 +31,8 @@ export class UpdatePatrolDto {
   @IsNumber()
   @IsOptional()
   patrol_weight?: number;
+
+  @IsEnum(PATROL_STATUS)
+  @IsOptional()
+  patrol_status?: PATROL_STATUS;
 }

@@ -1,6 +1,17 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { PATROL_STATUS } from '../../entity';
 
 export class CreatePatrolDto {
+  @IsString()
+  @IsNotEmpty()
+  patrol_id: string;
+
   @IsString()
   @IsNotEmpty()
   keeper_id: string;
@@ -20,4 +31,8 @@ export class CreatePatrolDto {
   @IsNumber()
   @IsNotEmpty()
   patrol_weight: number;
+
+  @IsEnum(PATROL_STATUS)
+  @IsOptional()
+  patrol_status?: PATROL_STATUS;
 }

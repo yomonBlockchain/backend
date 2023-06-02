@@ -20,6 +20,9 @@ export class Guard {
   @Column()
   guard_login_pw: string;
 
+  @Column()
+  guard_ether_address: string;
+
   @CreateDateColumn()
   created_at: Date;
 

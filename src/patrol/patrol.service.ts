@@ -26,6 +26,11 @@ export class PatrolService {
     }
   }
 
+  /**
+   * 순찰 조회
+   * --
+   * @returns
+   */
   async getPatrolList() {
     try {
       const result = await this.patrolRepository.find();
@@ -35,6 +40,29 @@ export class PatrolService {
     }
   }
 
+  /**
+   * 순찰 상세 정보 조회
+   * --
+   * @param patrol_id
+   * @returns
+   */
+  async getPatrolDetail(patrol_id: string) {
+    try {
+      const result = await this.patrolRepository.findOneOrFail({
+        where: { patrol_id },
+      });
+      return result;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
+   * 순찰 정보 수정
+   * --
+   * @param patrolInfo
+   * @returns
+   */
   async updatePatrol(patrolInfo: UpdatePatrolDto) {
     try {
       const { patrol_id, ...updateInfo } = patrolInfo;
@@ -48,6 +76,12 @@ export class PatrolService {
     }
   }
 
+  /**
+   * 순찰 정보 삭제
+   * --
+   * @param patrol_id
+   * @returns
+   */
   async deletePatrol(patrol_id: string) {
     try {
       const result = await this.patrolRepository.delete(patrol_id);

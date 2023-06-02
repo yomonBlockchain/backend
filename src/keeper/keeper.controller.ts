@@ -54,7 +54,7 @@ export class KeeperController {
     }
   }
 
-  @Get()
+  @Get(':keeper_id')
   async getKeeperDetail(
     @Res() res: Response,
     @Param('keeper_id') keeper_id: string,
@@ -94,7 +94,7 @@ export class KeeperController {
     }
   }
 
-  @Delete()
+  @Delete(':keeper_id')
   async deleteKeeper(
     @Res() res: Response,
     @Param('keeper_id') keeper_id: string,

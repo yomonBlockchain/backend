@@ -12,4 +12,8 @@ export class CreateGuardDto {
   @IsString()
   @IsNotEmpty()
   guard_nm: string;
+
+  @IsString()
+  @IsNotEmpty()
+  guard_ether_address: string;
 }

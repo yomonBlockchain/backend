@@ -54,6 +54,26 @@ export class PatrolController {
     }
   }
 
+  @Get(':patrol_id')
+  async getWorkingGroupDetail(
+    @Res() res: Response,
+    @Param('patrol_id') patrol_id: string,
+  ) {
+    try {
+      const result = await this.patrolService.getPatrolDetail(patrol_id);
+      return res.status(HttpStatus.OK).json({
+        status: HttpStatus.OK,
+        message: 'success',
+        data: result,
+      });
+    } catch (e) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: HttpStatus.BAD_REQUEST,
+        message: e.message,
+      });
+    }
+  }
+
   @Put()
   async updatePatrol(
     @Res() res: Response,

@@ -7,13 +7,13 @@ import { CourseModule } from './course/course.module';
 import { DbModule } from './db/db.module';
 import { DbService } from './db/db.service';
 import { EventModule } from './event/event.module';
+import { GroupModule } from './group/group.module';
 import { GuardModule } from './guard/guard.module';
 import { KeeperModule } from './keeper/keeper.module';
 import { PatrolModule } from './patrol/patrol.module';
 import { PointModule } from './point/point.module';
 import { SectorModule } from './sector/sector.module';
 import { TrackModule } from './track/track.module';
-import { WorkinggroupModule } from './workinggroup/workinggroup.module';
 
 @Module({
   imports: [
@@ -23,17 +23,17 @@ import { WorkinggroupModule } from './workinggroup/workinggroup.module';
       useClass: DbService,
       inject: [DbService],
     }),
-    KeeperModule,
-    GuardModule,
-    PatrolModule,
-    PointModule,
-    TrackModule,
-    EventModule,
     AdminModule,
     AuthModule,
-    SectorModule,
     CourseModule,
-    WorkinggroupModule,
+    EventModule,
+    GroupModule,
+    GuardModule,
+    KeeperModule,
+    PatrolModule,
+    PointModule,
+    SectorModule,
+    TrackModule,
   ],
   controllers: [],
   providers: [],

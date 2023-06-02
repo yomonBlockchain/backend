@@ -1,6 +1,7 @@
 export * from './admin.entity';
 export * from './course.entity';
 export * from './event.entity';
+export * from './group.entity';
 export * from './guard.entity';
 export * from './keeper.entity';
 export * from './patrol.course.entity';
@@ -8,4 +9,3 @@ export * from './patrol.entity';
 export * from './point.entity';
 export * from './sector.entity';
 export * from './track.entity';
-export * from './working.group.entity';

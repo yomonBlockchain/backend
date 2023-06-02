@@ -28,20 +28,6 @@ COMMENT='IsGuard 가드 관리자 엔티티\n';
 
 
 -- -----------------------------------------------------
--- Table `isguard`.`t_course`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `isguard`.`t_course` (
-  `course_id` CHAR(36) NOT NULL,
-  `course_title` VARCHAR(255) NOT NULL,
-  `course_desc` TEXT NOT NULL,
-  `course_reword` FLOAT DEFAULT NULL,
-  PRIMARY KEY (`course_id`)
-)
-ENGINE=InnoDB
-COMMENT='IsGuard 코스 엔티티\n';
-
-
--- -----------------------------------------------------
 -- Table `isguard`.`t_guard` 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `isguard`.`t_guard` (
@@ -49,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `isguard`.`t_guard` (
   `guard_nm` VARCHAR(255) NOT NULL COMMENT '가드 이름',
   `guard_login_id` VARCHAR(255) NOT NULL COMMENT '가드 로그인 아이디\n',
   `guard_login_pw` VARCHAR(255) NOT NULL COMMENT '가드 로그인 비밀번호\n',
+  `guard_ether_address` VARCHAR(255) NOT NULL COMMENT '가드 이더리움 주소\n',
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `modified_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (`guard_id`),
@@ -68,8 +55,10 @@ CREATE TABLE IF NOT EXISTS `isguard`.`t_keeper` (
   `keeper_login_pw` VARCHAR(255) NOT NULL COMMENT '키퍼 로그인 비밀번호\n',
   `keeper_tel` VARCHAR(45) NOT NULL,
   `keeper_region` VARCHAR(255) DEFAULT NULL,
-  `keeper_office` VARCHAR(255) NOT NULL,
+  `keeper_office` VARCHAR(255) DEFAULT NULL COMMENT '키퍼 소속',
+  `keeper_position` VARCHAR(255) DEFAULT NULL COMMENT '키퍼 직책',
   `keeper_img` VARCHAR(255) DEFAULT NULL,
+  `keeper_ether_address` VARCHAR(255) NOT NULL COMMENT '키퍼 이더리움 주소\n',
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `modified_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (`keeper_id`),
@@ -102,6 +91,42 @@ CREATE TABLE IF NOT EXISTS `isguard`.`t_patrol` (
 )
 ENGINE=InnoDB
 COMMENT='IsGuard 순찰 엔티티\n';
+
+
+-- -----------------------------------------------------
+-- Table `isguard`.`t_group` 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `isguard`.`t_group` (
+  `group_id` CHAR(36) NOT NULL,
+  `group_leader_id` CHAR(36) NOT NULL,
+  `patrol_id` CHAR(36) NOT NULL,
+  `guard_id` CHAR(36) NOT NULL,
+  `group_name` CHAR(36) NOT NULL,
+  `group_member` TEXT,
+  `group_desc` TEXT,
+  `is_part` TINYINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`group_id`),
+  INDEX `fk_t_group_t_keeper1_idx` (`group_leader_id` ASC) VISIBLE,
+  CONSTRAINT `fk_t_group_t_keeper1`
+    FOREIGN KEY (`group_leader_id`)
+    REFERENCES `t_keeper` (`keeper_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  INDEX `fk_t_group_t_patrol1_idx` (`patrol_id` ASC) VISIBLE,
+  CONSTRAINT `fk_t_group_t_patrol1`
+    FOREIGN KEY (`patrol_id`)
+    REFERENCES `t_patrol` (`patrol_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  INDEX `fk_t_group_t_guard1_idx` (`guard_id` ASC) VISIBLE,
+  CONSTRAINT `fk_t_group_t_guard1` 
+    FOREIGN KEY (`guard_id`)
+    REFERENCES `t_guard` (`guard_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+)
+ENGINE=InnoDB
+COMMENT='IsGuard 그룹 엔티티\n';
 
 
 -- -----------------------------------------------------
@@ -143,6 +168,45 @@ COMMENT='IsGuard 위험구역 엔티티\n';
 
 
 -- -----------------------------------------------------
+-- Table `isguard`.`t_course`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `isguard`.`t_course` (
+  `course_id` CHAR(36) NOT NULL,
+  `course_title` VARCHAR(255) NOT NULL,
+  `course_desc` TEXT NOT NULL,
+  `course_reword` FLOAT DEFAULT NULL,
+  PRIMARY KEY (`course_id`)
+)
+ENGINE=InnoDB
+COMMENT='IsGuard 코스 엔티티\n';
+
+
+-- -----------------------------------------------------
+-- Table `isguard`.`t_patrolcourse` 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `isguard`.`t_patrolcourse`  (
+  `patrol_id` CHAR(36) NOT NULL,
+  `course_id` CHAR(36) NOT NULL,
+  `patrolcourse_name` CHAR(36) NOT NULL,
+  PRIMARY KEY (`patrol_id`,`course_id`),
+  INDEX `fk_t_patrolcourse_t_patrol1_idx` (`patrol_id` ASC) VISIBLE,
+  CONSTRAINT `fk_t_patrolcourse_t_patrol1`
+    FOREIGN KEY (`patrol_id`)
+    REFERENCES `t_patrol` (`patrol_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  INDEX `fk_t_patrolcourse_t_course1_idx` (`course_id` ASC) VISIBLE,
+  CONSTRAINT `fk_t_patrolcourse_t_course1`
+    FOREIGN KEY (`course_id`)
+    REFERENCES `t_course` (`course_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+)
+ENGINE=InnoDB
+COMMENT='IsGuard 순찰 코스 엔티티\n';
+
+
+-- -----------------------------------------------------
 -- Table `isguard`.`t_track` 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `isguard`.`t_track` (
@@ -165,56 +229,6 @@ CREATE TABLE IF NOT EXISTS `isguard`.`t_track` (
 )
 ENGINE=InnoDB
 COMMENT='IsGuard 트랙 엔티티\n';
-
-
--- -----------------------------------------------------
--- Table `isguard`.`t_patrolcourse` 
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `isguard`.`t_patrolcourse`  (
-  `patrol_id` CHAR(36) NOT NULL,
-  `course_id` CHAR(36) NOT NULL,
-  PRIMARY KEY (`patrol_id`,`course_id`),
-  INDEX `fk_t_patrolcourse_t_patrol1_idx` (`patrol_id` ASC) VISIBLE,
-  CONSTRAINT `fk_t_patrolcourse_t_patrol1`
-    FOREIGN KEY (`patrol_id`)
-    REFERENCES `t_patrol` (`patrol_id`),
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  INDEX `fk_t_patrolcourse_t_course1_idx` (`course_id` ASC) VISIBLE,
-  CONSTRAINT `fk_t_patrolcourse_t_course1`
-    FOREIGN KEY (`course_id`)
-    REFERENCES `t_course` (`course_id`),
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-)
-ENGINE=InnoDB
-COMMENT='IsGuard 순찰 코스 엔티티\n';
-
-
--- -----------------------------------------------------
--- Table `isguard`.`t_workinggroup` 
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `isguard`.`t_workinggroup` (
-  `working_group_id` CHAR(36) NOT NULL,
-  `patrol_id` CHAR(36) NOT NULL,
-  `guard_id` CHAR(36) NOT NULL,
-  `is_part` TINYINT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`working_group_id`),
-  INDEX `fk_t_workinggroup_t_patrol1_idx` (`patrol_id` ASC) VISIBLE,
-  CONSTRAINT `fk_t_workinggroup_t_patrol1`
-    FOREIGN KEY (`patrol_id`)
-    REFERENCES `t_patrol` (`patrol_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  INDEX `fk_t_workinggroup_t_guard1_idx` (`guard_id` ASC) VISIBLE,
-  CONSTRAINT `fk_t_workinggroup_t_guard1` 
-    FOREIGN KEY (`guard_id`)
-    REFERENCES `t_guard` (`guard_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-)
-ENGINE=InnoDB
-COMMENT='IsGuard 워킹그룹 엔티티\n';
 
 
 -- -----------------------------------------------------

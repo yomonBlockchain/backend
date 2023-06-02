@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { WorkingGroup } from './working.group.entity';
+import { Group } from './group.entity';
 
 export enum EVENT_TYPE {
   V = 'V',
@@ -22,7 +22,7 @@ export class Event {
   event_id: string;
 
   @Column()
-  working_group_id: string;
+  group_id: string;
 
   @Column()
   event_title: string;
@@ -52,13 +52,9 @@ export class Event {
   @UpdateDateColumn()
   modified_at: Date;
 
-  @ManyToOne(
-    () => WorkingGroup,
-    (workingGroup) => workingGroup.working_group_id,
-    {
-      onUpdate: 'CASCADE',
-    },
-  )
-  @JoinColumn({ name: 'working_group_id' })
-  workingGroup: WorkingGroup;
+  @ManyToOne(() => Group, (group) => group.group_id, {
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn({ name: 'group_id' })
+  group: Group;
 }
