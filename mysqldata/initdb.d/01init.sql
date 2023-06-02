@@ -182,31 +182,6 @@ COMMENT='IsGuard 코스 엔티티\n';
 
 
 -- -----------------------------------------------------
--- Table `isguard`.`t_patrolcourse` 
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `isguard`.`t_patrolcourse`  (
-  `patrol_id` CHAR(36) NOT NULL,
-  `course_id` CHAR(36) NOT NULL,
-  `patrolcourse_name` CHAR(36) NOT NULL,
-  PRIMARY KEY (`patrol_id`,`course_id`),
-  INDEX `fk_t_patrolcourse_t_patrol1_idx` (`patrol_id` ASC) VISIBLE,
-  CONSTRAINT `fk_t_patrolcourse_t_patrol1`
-    FOREIGN KEY (`patrol_id`)
-    REFERENCES `t_patrol` (`patrol_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  INDEX `fk_t_patrolcourse_t_course1_idx` (`course_id` ASC) VISIBLE,
-  CONSTRAINT `fk_t_patrolcourse_t_course1`
-    FOREIGN KEY (`course_id`)
-    REFERENCES `t_course` (`course_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-)
-ENGINE=InnoDB
-COMMENT='IsGuard 순찰 코스 엔티티\n';
-
-
--- -----------------------------------------------------
 -- Table `isguard`.`t_track` 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `isguard`.`t_track` (
@@ -232,11 +207,36 @@ COMMENT='IsGuard 트랙 엔티티\n';
 
 
 -- -----------------------------------------------------
+-- Table `isguard`.`t_patrolcourse` 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `isguard`.`t_patrolcourse`  (
+  `patrol_id` CHAR(36) NOT NULL,
+  `course_id` CHAR(36) NOT NULL,
+  `patrolcourse_name` CHAR(36) NOT NULL,
+  PRIMARY KEY (`patrol_id`,`course_id`),
+  INDEX `fk_t_patrolcourse_t_patrol1_idx` (`patrol_id` ASC) VISIBLE,
+  CONSTRAINT `fk_t_patrolcourse_t_patrol1`
+    FOREIGN KEY (`patrol_id`)
+    REFERENCES `t_patrol` (`patrol_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  INDEX `fk_t_patrolcourse_t_course1_idx` (`course_id` ASC) VISIBLE,
+  CONSTRAINT `fk_t_patrolcourse_t_course1`
+    FOREIGN KEY (`course_id`)
+    REFERENCES `t_course` (`course_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+)
+ENGINE=InnoDB
+COMMENT='IsGuard 순찰 코스 엔티티\n';
+
+
+-- -----------------------------------------------------
 -- Table `isguard`.`t_event` 
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `isguard`.`t_event` (
   `event_id` CHAR(36) NOT NULL,
-  `working_group_id` CHAR(36) NOT NULL,
+  `group_id` CHAR(36) NOT NULL,
   `event_title` VARCHAR(255) NOT NULL,
   `event_desc` TEXT,
   `event_type` ENUM('V','S','R','ETC') NOT NULL DEFAULT 'ETC',
@@ -246,10 +246,10 @@ CREATE TABLE IF NOT EXISTS `isguard`.`t_event` (
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `modified_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (`event_id`),
-  INDEX `fk_t_event_t_working_group1_idx` (`working_group_id` ASC) VISIBLE,
-  CONSTRAINT `fk_t_event_t_working_group1` 
-    FOREIGN KEY (`working_group_id`) 
-    REFERENCES `t_workinggroup` (`working_group_id`)
+  INDEX `fk_t_event_t_group1_idx` (`group_id` ASC) VISIBLE,
+  CONSTRAINT `fk_t_event_t_group1` 
+    FOREIGN KEY (`group_id`) 
+    REFERENCES `t_group` (`group_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE=InnoDB

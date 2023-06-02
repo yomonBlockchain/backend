@@ -4,7 +4,7 @@ import { EVENT_TYPE } from '../../entity';
 export class CreateEventDto {
   @IsString()
   @IsNotEmpty()
-  working_group_id: string;
+  group_id: string;
 
   @IsString()
   @IsNotEmpty()
@@ -15,7 +15,7 @@ export class CreateEventDto {
   event_desc: string;
 
   @IsEnum(EVENT_TYPE)
-  @IsNotEmpty()
+  @IsOptional()
   event_type: EVENT_TYPE;
 
   @IsString()

@@ -14,6 +14,7 @@ import { PatrolModule } from './patrol/patrol.module';
 import { PointModule } from './point/point.module';
 import { SectorModule } from './sector/sector.module';
 import { TrackModule } from './track/track.module';
+import { PatrolCourseModule } from './patrolcourse/patrolcourse.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { TrackModule } from './track/track.module';
     PointModule,
     SectorModule,
     TrackModule,
+    PatrolCourseModule,
   ],
   controllers: [],
   providers: [],

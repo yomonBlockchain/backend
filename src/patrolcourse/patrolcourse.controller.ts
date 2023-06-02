@@ -10,20 +10,22 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CreatePatrolDto, UpdatePatrolDto } from './dto';
-import { PatrolService } from './patrol.service';
+import { PatrolCourseService } from './patrolcourse.service';
+import { CreatePatrolCourseDto, UpdatePatrolCourseDto } from './dto';
 
-@Controller('patrol')
-export class PatrolController {
-  constructor(private patrolService: PatrolService) {}
+@Controller('patrolcourse')
+export class PatrolCourseController {
+  constructor(private patrolCourseService: PatrolCourseService) {}
 
   @Post()
-  async createPatrol(
+  async createPatrolCourse(
     @Res() res: Response,
-    @Body() patrolInfo: CreatePatrolDto,
+    @Body() patrolCourceInfo: CreatePatrolCourseDto,
   ) {
     try {
-      const result = await this.patrolService.createPatrol(patrolInfo);
+      const result = await this.patrolCourseService.createPatrolCourse(
+        patrolCourceInfo,
+      );
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',
@@ -38,9 +40,9 @@ export class PatrolController {
   }
 
   @Get()
-  async getPatrolList(@Res() res: Response) {
+  async getPatrolCourseList(@Res() res: Response) {
     try {
-      const result = await this.patrolService.getPatrolList();
+      const result = await this.patrolCourseService.getPatrolCourseList();
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',
@@ -54,13 +56,17 @@ export class PatrolController {
     }
   }
 
-  @Get(':patrol_id')
-  async getPatrolDetail(
+  @Get(':patrol_id/:course_id')
+  async getPatrolCourseDetail(
     @Res() res: Response,
     @Param('patrol_id') patrol_id: string,
+    @Param('course_id') course_id: string,
   ) {
     try {
-      const result = await this.patrolService.getPatrolDetail(patrol_id);
+      const result = await this.patrolCourseService.getPatrolCourseDetail(
+        patrol_id,
+        course_id,
+      );
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',
@@ -75,12 +81,14 @@ export class PatrolController {
   }
 
   @Put()
-  async updatePatrol(
+  async updatePatrolCourse(
     @Res() res: Response,
-    @Body() patrolInfo: UpdatePatrolDto,
+    @Body() patrolCourceInfo: UpdatePatrolCourseDto,
   ) {
     try {
-      const result = await this.patrolService.updatePatrol(patrolInfo);
+      const result = await this.patrolCourseService.updatePatrolCourse(
+        patrolCourceInfo,
+      );
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',
@@ -94,13 +102,17 @@ export class PatrolController {
     }
   }
 
-  @Delete(':patrol_id')
-  async deletePatrol(
+  @Delete(':patrol_id/:course_id')
+  async deletePatrolCourse(
     @Res() res: Response,
     @Param('patrol_id') patrol_id: string,
+    @Param('course_id') course_id: string,
   ) {
     try {
-      const result = await this.patrolService.deletePatrol(patrol_id);
+      const result = await this.patrolCourseService.deletePatrolCourse(
+        patrol_id,
+        course_id,
+      );
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',
