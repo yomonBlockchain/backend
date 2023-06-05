@@ -11,11 +11,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { JwtGaurd } from '../auth/gaurd';
 import { CreateGuardDto, UpdateGuardDto } from './dto';
 import { GuardService } from './guard.service';
 
-@UseGuards(JwtGaurd)
 @Controller('guard')
 export class GuardController {
   constructor(private guardService: GuardService) {}

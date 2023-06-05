@@ -11,11 +11,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { JwtGaurd } from '../auth/gaurd';
 import { AdminService } from './admin.service';
 import { CreateAdminDto, UpdateAdminDto } from './dto';
 
-@UseGuards(JwtGaurd)
 @Controller('admin')
 export class AdminController {
   constructor(private adminService: AdminService) {}

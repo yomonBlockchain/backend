@@ -11,11 +11,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { JwtGaurd } from '../auth/gaurd';
 import { CreatePointDto, UpdatePointDto } from './dto';
 import { PointService } from './point.service';
 
-@UseGuards(JwtGaurd)
 @Controller('point')
 export class PointController {
   constructor(private pointService: PointService) {}
