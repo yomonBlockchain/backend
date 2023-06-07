@@ -10,7 +10,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CreateGroupDto, UpdateGroupDto } from './dto';
+import { CreateGroupDto, JoinGroupDto, UpdateGroupDto } from './dto';
 import { GroupService } from './group.service';
 
 @Controller('group')
@@ -75,6 +75,23 @@ export class GroupController {
   async updateGroup(@Res() res: Response, @Body() groupInfo: UpdateGroupDto) {
     try {
       const result = await this.groupService.updateGroup(groupInfo);
+      return res.status(HttpStatus.OK).json({
+        status: HttpStatus.OK,
+        message: 'success',
+        data: result,
+      });
+    } catch (e) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: HttpStatus.BAD_REQUEST,
+        message: e.message,
+      });
+    }
+  }
+
+  @Put('join')
+  async joinGroup(@Res() res: Response, @Body() groupInfo: JoinGroupDto) {
+    try {
+      const result = await this.groupService.joinGroup(groupInfo);
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',

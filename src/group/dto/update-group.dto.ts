@@ -33,3 +33,13 @@ export class UpdateGroupDto {
   @IsOptional()
   is_part: boolean;
 }
+
+export class JoinGroupDto {
+  @IsString()
+  @IsNotEmpty()
+  target_group_id: string;
+
+  @IsString()
+  @IsOptional()
+  guard_id: string;
+}

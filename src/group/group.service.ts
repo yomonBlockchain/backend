@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Group } from '../entity';
 import { Repository } from 'typeorm';
-import { CreateGroupDto, UpdateGroupDto } from './dto';
+import { CreateGroupDto, JoinGroupDto, UpdateGroupDto } from './dto';
 
 @Injectable()
 export class GroupService {
@@ -66,6 +66,32 @@ export class GroupService {
   async updateGroup(groupInfo: UpdateGroupDto) {
     try {
       const { group_id, ...updateInfo } = groupInfo;
+      const result = await this.groupRepository.update(
+        { group_id },
+        updateInfo,
+      );
+      return result;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
+   * 그룹 참가
+   * --
+   * @param joinGroupInfo
+   * @returns
+   */
+  async joinGroup(joinGroupInfo: JoinGroupDto) {
+    try {
+      const { target_group_id, guard_id } = joinGroupInfo;
+      const target = await this.groupRepository.findOneOrFail({
+        where: { group_id: target_group_id },
+      });
+      const updated_member = target.group_member + ', ' + guard_id;
+      target.group_member = updated_member;
+
+      const { group_id, ...updateInfo } = target;
       const result = await this.groupRepository.update(
         { group_id },
         updateInfo,
