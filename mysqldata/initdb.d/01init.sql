@@ -100,16 +100,16 @@ CREATE TABLE IF NOT EXISTS `isguard`.`t_group` (
   `group_id` CHAR(36) NOT NULL,
   `group_leader_id` CHAR(36) NOT NULL,
   `patrol_id` CHAR(36) NOT NULL,
-  `guard_id` CHAR(36) NOT NULL,
+  `keeper_id` CHAR(36) NOT NULL,
   `group_name` CHAR(36) NOT NULL,
   `group_member` TEXT,
   `group_desc` TEXT,
   `is_part` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`group_id`),
-  INDEX `fk_t_group_t_keeper1_idx` (`group_leader_id` ASC) VISIBLE,
-  CONSTRAINT `fk_t_group_t_keeper1`
+  INDEX `fk_t_group_t_guard1_idx` (`group_leader_id` ASC) VISIBLE,
+  CONSTRAINT `fk_t_group_t_guard1`
     FOREIGN KEY (`group_leader_id`)
-    REFERENCES `t_keeper` (`keeper_id`)
+    REFERENCES `t_guard` (`guard_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   INDEX `fk_t_group_t_patrol1_idx` (`patrol_id` ASC) VISIBLE,
@@ -118,10 +118,10 @@ CREATE TABLE IF NOT EXISTS `isguard`.`t_group` (
     REFERENCES `t_patrol` (`patrol_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  INDEX `fk_t_group_t_guard1_idx` (`guard_id` ASC) VISIBLE,
-  CONSTRAINT `fk_t_group_t_guard1` 
-    FOREIGN KEY (`guard_id`)
-    REFERENCES `t_guard` (`guard_id`)
+  INDEX `fk_t_group_t_keeper1_idx` (`keeper_id` ASC) VISIBLE,
+  CONSTRAINT `fk_t_group_t_keeper1` 
+    FOREIGN KEY (`keeper_id`)
+    REFERENCES `t_keeper` (`keeper_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 )

@@ -27,7 +27,7 @@ export class CreateGroupDto {
 
   @IsString()
   @IsNotEmpty()
-  guard_id: string;
+  keeper_id: string;
 
   @IsBoolean()
   @IsNotEmpty()

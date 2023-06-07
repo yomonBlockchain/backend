@@ -27,7 +27,7 @@ export class UpdateGroupDto {
 
   @IsString()
   @IsOptional()
-  guard_id: string;
+  keeper_id: string;
 
   @IsBoolean()
   @IsOptional()

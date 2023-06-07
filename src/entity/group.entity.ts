@@ -27,7 +27,7 @@ export class Group {
   patrol_id: string;
 
   @Column()
-  guard_id: string;
+  keeper_id: string;
 
   @Column()
   is_part: boolean;
@@ -38,13 +38,15 @@ export class Group {
   @JoinColumn({ name: 'patrol_id' })
   patrol: Patrol;
 
-  @ManyToOne(() => Keeper, (keeper) => keeper.keeper_id, {
+  @ManyToOne(() => Guard, (guard) => guard.guard_id, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'group_leader_id' })
-  keeper: Keeper;
-
-  @ManyToOne(() => Guard, (guard) => guard.guard_id, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'guard_id' })
   guard: Guard;
+
+  @ManyToOne(() => Keeper, (keeper) => keeper.keeper_id, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'keeper_id' })
+  keeper: Keeper;
 }
