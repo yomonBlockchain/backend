@@ -88,6 +88,9 @@ export class GroupService {
       const target = await this.groupRepository.findOneOrFail({
         where: { group_id: target_group_id },
       });
+      if (target.is_part) {
+        throw new Error('This is a group that has been recruited');
+      }
       const updated_member = target.group_member + ', ' + guard_id;
       target.group_member = updated_member;
 
