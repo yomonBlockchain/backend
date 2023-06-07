@@ -9,6 +9,7 @@ import {
   AdminSigninDto,
   AdminSignupDto,
   GuardSignInDto,
+  GuardSignInMMDto,
   GuardSignUpDto,
   KeeperSignInDto,
   KeeperSignUpDto,
@@ -59,7 +60,7 @@ export class AuthService {
   }
 
   /**
-   * 관리잘 로그인
+   * 관리자 로그인
    * --
    * @param loginInfo
    * @returns
@@ -246,6 +247,35 @@ export class AuthService {
     }
   }
 
+  /**
+   * 메타마스크 주소로 가드 로그인
+   * --
+   * @param
+   * @returns
+   */
+  async signInGuardMM(loginInfo: GuardSignInMMDto) {
+    try {
+      const { guard_ether_address } = loginInfo;
+      const guard = await this.guardRepository.findOne({
+        where: { guard_ether_address },
+      });
+      if (!guard) {
+        throw new ForbiddenException('Credentials incorrect');
+      }
+
+      const access_token = await this.generateToken(
+        guard.guard_login_id,
+        'GUARD',
+      );
+      const login_data = {
+        ...guard,
+        ...access_token,
+      };
+      return login_data;
+    } catch (e) {
+      throw e;
+    }
+  }
   /**
    * 토큰 생성
    * --

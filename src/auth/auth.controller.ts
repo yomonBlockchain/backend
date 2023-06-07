@@ -5,6 +5,7 @@ import {
   AdminSigninDto,
   AdminSignupDto,
   GuardSignInDto,
+  GuardSignInMMDto,
   GuardSignUpDto,
   KeeperSignInDto,
   KeeperSignUpDto,
@@ -69,6 +70,26 @@ export class AuthController {
   async signInGuard(@Res() res: Response, @Body() loginInfo: GuardSignInDto) {
     try {
       const result = await this.authService.signinGuard(loginInfo);
+      return res.status(HttpStatus.OK).json({
+        status: HttpStatus.OK,
+        message: 'success',
+        data: result,
+      });
+    } catch (e) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: HttpStatus.BAD_REQUEST,
+        message: e.message,
+      });
+    }
+  }
+
+  @Post('guard/signinmm')
+  async signInGuardMM(
+    @Res() res: Response,
+    @Body() loginInfo: GuardSignInMMDto,
+  ) {
+    try {
+      const result = await this.authService.signInGuardMM(loginInfo);
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',

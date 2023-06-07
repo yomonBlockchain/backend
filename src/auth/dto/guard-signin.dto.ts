@@ -9,3 +9,9 @@ export class GuardSignInDto {
   @IsNotEmpty()
   guard_login_pw: string;
 }
+
+export class GuardSignInMMDto {
+  @IsString()
+  @IsNotEmpty()
+  guard_ether_address: string;
+}
