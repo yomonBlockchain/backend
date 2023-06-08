@@ -32,6 +32,9 @@ export class Group {
   @Column()
   is_part: boolean;
 
+  @Column({ default: 0 })
+  group_count_patrol: number;
+
   @ManyToOne(() => Patrol, (patrol) => patrol.patrol_id, {
     onDelete: 'CASCADE',
   })

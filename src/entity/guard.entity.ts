@@ -23,6 +23,9 @@ export class Guard {
   @Column()
   guard_ether_address: string;
 
+  @Column({ default: 0 })
+  guard_count_patrol: number;
+
   @CreateDateColumn()
   created_at: Date;
 

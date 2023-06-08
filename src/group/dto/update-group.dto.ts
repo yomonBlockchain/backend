@@ -1,4 +1,10 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class UpdateGroupDto {
   @IsString()
@@ -21,6 +27,10 @@ export class UpdateGroupDto {
   @IsOptional()
   group_desc: string;
 
+  @IsNumber()
+  @IsOptional()
+  group_count_patrol?: number;
+
   @IsString()
   @IsOptional()
   patrol_id: string;
@@ -42,4 +52,10 @@ export class JoinGroupDto {
   @IsString()
   @IsOptional()
   guard_id: string;
+}
+
+export class CountGroupPatrolDto {
+  @IsString()
+  @IsNotEmpty()
+  target_group_id: string;
 }

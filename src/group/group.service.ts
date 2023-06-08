@@ -2,7 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Group } from '../entity';
 import { Repository } from 'typeorm';
-import { CreateGroupDto, JoinGroupDto, UpdateGroupDto } from './dto';
+import {
+  CountGroupPatrolDto,
+  CreateGroupDto,
+  JoinGroupDto,
+  UpdateGroupDto,
+} from './dto';
 
 @Injectable()
 export class GroupService {
@@ -94,6 +99,30 @@ export class GroupService {
       const updated_member = target.group_member + ', ' + guard_id;
       target.group_member = updated_member;
 
+      const { group_id, ...updateInfo } = target;
+      const result = await this.groupRepository.update(
+        { group_id },
+        updateInfo,
+      );
+      return result;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
+   * 순찰 카운트
+   * --
+   * @param guardInfo
+   * @returns
+   */
+  async countGroupPatrol(groupInfo: CountGroupPatrolDto) {
+    try {
+      const { target_group_id } = groupInfo;
+      const target = await this.groupRepository.findOneOrFail({
+        where: { group_id: target_group_id },
+      });
+      target.group_count_patrol += 1;
       const { group_id, ...updateInfo } = target;
       const result = await this.groupRepository.update(
         { group_id },

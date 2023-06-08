@@ -11,7 +11,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CreateGuardDto, UpdateGuardDto } from './dto';
+import {
+  CountGroupGuardPatrolDto,
+  CountGuardPatrolDto,
+  CreateGuardDto,
+  UpdateGuardDto,
+} from './dto';
 import { GuardService } from './guard.service';
 
 @Controller('guard')
@@ -75,6 +80,48 @@ export class GuardController {
   async updateGuard(@Res() res: Response, @Body() guardInfo: UpdateGuardDto) {
     try {
       const result = await this.guardService.updateGuard(guardInfo);
+      return res.status(HttpStatus.OK).json({
+        status: HttpStatus.OK,
+        message: 'success',
+        data: result,
+      });
+    } catch (e) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: HttpStatus.BAD_REQUEST,
+        message: e.message,
+      });
+    }
+  }
+
+  @Put('count')
+  async countGuardPatrol(
+    @Res() res: Response,
+    @Body() guardInfo: CountGuardPatrolDto,
+  ) {
+    try {
+      const result = await this.guardService.countGuardPatrol(guardInfo);
+      return res.status(HttpStatus.OK).json({
+        status: HttpStatus.OK,
+        message: 'success',
+        data: result,
+      });
+    } catch (e) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: HttpStatus.BAD_REQUEST,
+        message: e.message,
+      });
+    }
+  }
+
+  @Put('groupcount')
+  async countGroupGuardPatrol(
+    @Res() res: Response,
+    @Body() groupguardInfo: CountGroupGuardPatrolDto,
+  ) {
+    try {
+      const result = await this.guardService.countGroupGuardPatrol(
+        groupguardInfo,
+      );
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',

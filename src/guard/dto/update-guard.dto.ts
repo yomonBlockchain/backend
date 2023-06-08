@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateGuardDto {
   @IsString()
@@ -12,4 +12,20 @@ export class UpdateGuardDto {
   @IsString()
   @IsOptional()
   guard_nm?: string;
+
+  @IsNumber()
+  @IsOptional()
+  guard_count_patrol?: number;
+}
+
+export class CountGuardPatrolDto {
+  @IsString()
+  @IsNotEmpty()
+  target_guard_id: string;
+}
+
+export class CountGroupGuardPatrolDto {
+  @IsString()
+  @IsNotEmpty()
+  group_guards: string;
 }

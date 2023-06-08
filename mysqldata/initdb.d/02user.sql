@@ -3,16 +3,16 @@ INSERT INTO `isguard`.`t_admin` (`admin_id`, `admin_nm`, `admin_login_id`, `admi
 VALUES ('admin', 'admin', 'admin_id', 'admin_pw', 'ADMIN', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
 -- t_guard 테이블에 데이터 입력
-INSERT INTO `isguard`.`t_guard` (`guard_id`, `guard_nm`, `guard_login_id`, `guard_login_pw`, `guard_ether_address`, `created_at`, `modified_at`) 
-VALUES ('guard1', 'Guard 1', 'guard1_login', 'guard1_password', 'guard1_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('guard2', 'Guard 2', 'guard2_login', 'guard2_password', 'guard2_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('guard3', 'Guard 3', 'guard3_login', 'guard3_password', 'guard3_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('guard4', 'Guard 4', 'guard4_login', 'guard4_password', 'guard4_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('guard5', 'Guard 5', 'guard5_login', 'guard5_password', 'guard5_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('guard6', 'Guard 6', 'guard6_login', 'guard6_password', 'guard6_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('guard7', 'Guard 7', 'guard7_login', 'guard7_password', 'guard7_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('guard8', 'Guard 8', 'guard8_login', 'guard8_password', 'guard8_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('guard9', 'Guard 9', 'guard9_login', 'guard9_password', 'guard9_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+INSERT INTO `isguard`.`t_guard` (`guard_id`, `guard_nm`, `guard_login_id`, `guard_login_pw`, `guard_ether_address`, `guard_count_patrol`, `created_at`, `modified_at`) 
+VALUES ('guard1', 'Guard 1', 'guard1_login', 'guard1_password', 'guard1_ether_address', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('guard2', 'Guard 2', 'guard2_login', 'guard2_password', 'guard2_ether_address', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('guard3', 'Guard 3', 'guard3_login', 'guard3_password', 'guard3_ether_address', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('guard4', 'Guard 4', 'guard4_login', 'guard4_password', 'guard4_ether_address', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('guard5', 'Guard 5', 'guard5_login', 'guard5_password', 'guard5_ether_address', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('guard6', 'Guard 6', 'guard6_login', 'guard6_password', 'guard6_ether_address', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('guard7', 'Guard 7', 'guard7_login', 'guard7_password', 'guard7_ether_address', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('guard8', 'Guard 8', 'guard8_login', 'guard8_password', 'guard8_ether_address', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('guard9', 'Guard 9', 'guard9_login', 'guard9_password', 'guard9_ether_address', 0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
 
 -- t_keeper 테이블에 데이터 입력
 INSERT INTO `isguard`.`t_keeper` (`keeper_id`, `keeper_nm`, `keeper_login_id`, `keeper_login_pw`, `keeper_tel`, `keeper_region`, `keeper_office`, `keeper_position`, `keeper_img`, `keeper_ether_address`, `created_at`, `modified_at`) 

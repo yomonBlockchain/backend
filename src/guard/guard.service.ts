@@ -2,7 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Guard } from '../entity';
-import { CreateGuardDto, UpdateGuardDto } from './dto';
+import {
+  CountGroupGuardPatrolDto,
+  CountGuardPatrolDto,
+  CreateGuardDto,
+  UpdateGuardDto,
+} from './dto';
 import * as argon from 'argon2';
 
 @Injectable()
@@ -89,6 +94,53 @@ export class GuardService {
       }
       const result = await this.guardRepository.update({}, updateInfo);
       return result;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
+   * 가드 순찰 카운트
+   * --
+   * @param guardInfo
+   * @returns
+   */
+  async countGuardPatrol(guardInfo: CountGuardPatrolDto) {
+    try {
+      const { target_guard_id } = guardInfo;
+      const target = await this.guardRepository.findOneOrFail({
+        where: { guard_id: target_guard_id },
+      });
+      target.guard_count_patrol += 1;
+
+      const { guard_id, ...updateInfo } = target;
+      const result = await this.guardRepository.update(
+        { guard_id },
+        updateInfo,
+      );
+      return result;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
+   * 그룹 가드 순찰 카운트
+   * --
+   * @param groupguardInfo
+   * @returns
+   */
+  async countGroupGuardPatrol(groupguardInfo: CountGroupGuardPatrolDto) {
+    try {
+      const { group_guards } = groupguardInfo;
+      const parsedguard = group_guards.split(', ');
+      for (const item of parsedguard) {
+        let guardInfo = {
+          target_guard_id: item,
+        };
+        this.countGuardPatrol(guardInfo);
+      }
+      return;
     } catch (e) {
       throw e;
     }
