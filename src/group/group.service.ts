@@ -63,6 +63,23 @@ export class GroupService {
   }
 
   /**
+   * 가드로 그룹 정보 조회
+   * --
+   * @param group_leader_id
+   * @returns
+   */
+  async getGroupById(group_leader_id: string) {
+    try {
+      const result = await this.groupRepository.find({
+        where: { group_leader_id },
+      });
+      return result;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
    * 그룹 정보 수정
    * --
    * @param groupInfo

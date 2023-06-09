@@ -3,10 +3,6 @@ import { IsBoolean, IsNotEmpty, IsString, IsOptional } from 'class-validator';
 export class CreateGroupDto {
   @IsString()
   @IsNotEmpty()
-  group_id: string;
-
-  @IsString()
-  @IsNotEmpty()
   group_name: string;
 
   @IsString()

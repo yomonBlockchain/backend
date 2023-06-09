@@ -10,7 +10,12 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CreateGroupDto, JoinGroupDto, UpdateGroupDto } from './dto';
+import {
+  CountGroupPatrolDto,
+  CreateGroupDto,
+  JoinGroupDto,
+  UpdateGroupDto,
+} from './dto';
 import { GroupService } from './group.service';
 
 @Controller('group')
@@ -52,12 +57,32 @@ export class GroupController {
   }
 
   @Get(':group_id')
-  async getWorkingGroupDetail(
+  async getGroupDetail(
     @Res() res: Response,
     @Param('group_id') group_id: string,
   ) {
     try {
       const result = await this.groupService.getGroupDetail(group_id);
+      return res.status(HttpStatus.OK).json({
+        status: HttpStatus.OK,
+        message: 'success',
+        data: result,
+      });
+    } catch (e) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: HttpStatus.BAD_REQUEST,
+        message: e.message,
+      });
+    }
+  }
+
+  @Get('guard/:group_leader_id')
+  async getGroupById(
+    @Res() res: Response,
+    @Param('group_leader_id') group_leader_id: string,
+  ) {
+    try {
+      const result = await this.groupService.getGroupById(group_leader_id);
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',
@@ -92,6 +117,26 @@ export class GroupController {
   async joinGroup(@Res() res: Response, @Body() groupInfo: JoinGroupDto) {
     try {
       const result = await this.groupService.joinGroup(groupInfo);
+      return res.status(HttpStatus.OK).json({
+        status: HttpStatus.OK,
+        message: 'success',
+        data: result,
+      });
+    } catch (e) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: HttpStatus.BAD_REQUEST,
+        message: e.message,
+      });
+    }
+  }
+
+  @Put('count')
+  async countGroup(
+    @Res() res: Response,
+    @Body() groupInfo: CountGroupPatrolDto,
+  ) {
+    try {
+      const result = await this.groupService.countGroupPatrol(groupInfo);
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',

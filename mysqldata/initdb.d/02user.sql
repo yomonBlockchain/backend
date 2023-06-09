@@ -16,12 +16,12 @@ VALUES ('guard1', 'Guard 1', 'guard1_login', 'guard1_password', 'guard1_ether_ad
 
 -- t_keeper 테이블에 데이터 입력
 INSERT INTO `isguard`.`t_keeper` (`keeper_id`, `keeper_nm`, `keeper_login_id`, `keeper_login_pw`, `keeper_tel`, `keeper_region`, `keeper_office`, `keeper_position`, `keeper_img`, `keeper_ether_address`, `created_at`, `modified_at`) 
-VALUES ('keeper1', 'Keeper 1', 'keeper1_login', 'keeper1_password', 'keeper1_tel', 'keeper1_region', 'keeper1_office', 'keeper1_position', 'keeper1_img', 'keeper1_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('keeper2', 'Keeper 2', 'keeper2_login', 'keeper2_password', 'keeper2_tel', 'keeper2_region', 'keeper2_office', 'keeper2_position', 'keeper2_img', 'keeper2_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('keeper3', 'Keeper 3', 'keeper3_login', 'keeper3_password', 'keeper3_tel', 'keeper3_region', 'keeper3_office', 'keeper3_position', 'keeper3_img', 'keeper3_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('keeper4', 'Keeper 4', 'keeper4_login', 'keeper4_password', 'keeper4_tel', 'keeper4_region', 'keeper4_office', 'keeper4_position', 'keeper4_img', 'keeper4_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('keeper5', 'Keeper 5', 'keeper5_login', 'keeper5_password', 'keeper5_tel', 'keeper5_region', 'keeper5_office', 'keeper5_position', 'keeper5_img', 'keeper5_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('keeper6', 'Keeper 6', 'keeper6_login', 'keeper6_password', 'keeper6_tel', 'keeper6_region', 'keeper6_office', 'keeper6_position', 'keeper6_img', 'keeper6_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('keeper7', 'Keeper 7', 'keeper7_login', 'keeper7_password', 'keeper7_tel', 'keeper7_region', 'keeper7_office', 'keeper7_position', 'keeper7_img', 'keeper7_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('keeper8', 'Keeper 8', 'keeper8_login', 'keeper8_password', 'keeper8_tel', 'keeper8_region', 'keeper8_office', 'keeper8_position', 'keeper8_img', 'keeper8_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
-       ('keeper9', 'Keeper 9', 'keeper9_login', 'keeper9_password', 'keeper9_tel', 'keeper9_region', 'keeper9_office', 'keeper9_position', 'keeper9_img', 'keeper9_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
+VALUES ('keeper1', 'Keeper 1', 'keeper1_login', 'keeper1_password', 'keeper1_tel', '부산광역시 금정구 장전1동', 'keeper1_office', 'keeper1_position', 'keeper1_img', 'keeper1_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('keeper2', 'Keeper 2', 'keeper2_login', 'keeper2_password', 'keeper2_tel', '부산광역시 금정구 장전2동', 'keeper2_office', 'keeper2_position', 'keeper2_img', 'keeper2_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('keeper3', 'Keeper 3', 'keeper3_login', 'keeper3_password', 'keeper3_tel', '부산광역시 금정구 장전3동', 'keeper3_office', 'keeper3_position', 'keeper3_img', 'keeper3_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('keeper4', 'Keeper 4', 'keeper4_login', 'keeper4_password', 'keeper4_tel', '부산광역시 금정구 부곡1동', 'keeper4_office', 'keeper4_position', 'keeper4_img', 'keeper4_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('keeper5', 'Keeper 5', 'keeper5_login', 'keeper5_password', 'keeper5_tel', '부산광역시 금정구 부곡2동', 'keeper5_office', 'keeper5_position', 'keeper5_img', 'keeper5_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('keeper6', 'Keeper 6', 'keeper6_login', 'keeper6_password', 'keeper6_tel', '부산광역시 금정구 부곡3동', 'keeper6_office', 'keeper6_position', 'keeper6_img', 'keeper6_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('keeper7', 'Keeper 7', 'keeper7_login', 'keeper7_password', 'keeper7_tel', '부산광역시 금정구 부곡4동', 'keeper7_office', 'keeper7_position', 'keeper7_img', 'keeper7_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('keeper8', 'Keeper 8', 'keeper8_login', 'keeper8_password', 'keeper8_tel', '부산광역시 금정구 구서1동', 'keeper8_office', 'keeper8_position', 'keeper8_img', 'keeper8_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()),
+       ('keeper9', 'Keeper 9', 'keeper9_login', 'keeper9_password', 'keeper9_tel', '부산광역시 금정구 구서2동', 'keeper9_office', 'keeper9_position', 'keeper9_img', 'keeper9_ether_address', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP());
