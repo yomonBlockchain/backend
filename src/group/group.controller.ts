@@ -76,13 +76,13 @@ export class GroupController {
     }
   }
 
-  @Get('guard/:group_leader_id')
-  async getGroupById(
+  @Get('guard/:group_id')
+  async getGroupByGuard(
     @Res() res: Response,
-    @Param('group_leader_id') group_leader_id: string,
+    @Param('group_id') group_id: string,
   ) {
     try {
-      const result = await this.groupService.getGroupById(group_leader_id);
+      const result = await this.groupService.getGroupByGuard(group_id);
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',

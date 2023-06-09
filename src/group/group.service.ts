@@ -65,14 +65,15 @@ export class GroupService {
   /**
    * 가드로 그룹 정보 조회
    * --
-   * @param group_leader_id
+   * @param group_id
    * @returns
    */
-  async getGroupById(group_leader_id: string) {
+  async getGroupByGuard(group_id: string) {
     try {
-      const result = await this.groupRepository.find({
-        where: { group_leader_id },
-      });
+      const result = await this.groupRepository
+        .createQueryBuilder('group')
+        .where('group.group_member LIKE :member', { member: `%${group_id}%` })
+        .getMany();
       return result;
     } catch (e) {
       throw e;
