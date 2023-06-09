@@ -14,7 +14,7 @@ export class CreateGroupDto {
   group_member: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   group_desc: string;
 
   @IsString()

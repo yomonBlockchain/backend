@@ -24,6 +24,9 @@ export class Group {
   group_member: string;
 
   @Column()
+  group_desc: string;
+
+  @Column()
   patrol_id: string;
 
   @Column()
