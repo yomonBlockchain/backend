@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Group } from '../entity';
 import { Repository } from 'typeorm';
 import {
-  CountGroupPatrolDto,
   CreateGroupDto,
+  GroupPatrolDto,
   JoinGroupDto,
   UpdateGroupDto,
 } from './dto';
@@ -134,13 +134,37 @@ export class GroupService {
    * @param guardInfo
    * @returns
    */
-  async countGroupPatrol(groupInfo: CountGroupPatrolDto) {
+  async countGroupPatrol(groupInfo: GroupPatrolDto) {
     try {
       const { target_group_id } = groupInfo;
       const target = await this.groupRepository.findOneOrFail({
         where: { group_id: target_group_id },
       });
       target.group_count_patrol += 1;
+      const { group_id, ...updateInfo } = target;
+      const result = await this.groupRepository.update(
+        { group_id },
+        updateInfo,
+      );
+      return result;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
+   * 순찰 상태 변경
+   * --
+   * @param guardInfo
+   * @returns
+   */
+  async changePatrolStatus(groupInfo: GroupPatrolDto) {
+    try {
+      const { target_group_id } = groupInfo;
+      const target = await this.groupRepository.findOneOrFail({
+        where: { group_id: target_group_id },
+      });
+      target.patrol_status = !target.patrol_status;
       const { group_id, ...updateInfo } = target;
       const result = await this.groupRepository.update(
         { group_id },

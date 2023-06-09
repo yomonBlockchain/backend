@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import {
-  CountGroupPatrolDto,
   CreateGroupDto,
+  GroupPatrolDto,
   JoinGroupDto,
   UpdateGroupDto,
 } from './dto';
@@ -131,12 +131,29 @@ export class GroupController {
   }
 
   @Put('count')
-  async countGroup(
-    @Res() res: Response,
-    @Body() groupInfo: CountGroupPatrolDto,
-  ) {
+  async countGroup(@Res() res: Response, @Body() groupInfo: GroupPatrolDto) {
     try {
       const result = await this.groupService.countGroupPatrol(groupInfo);
+      return res.status(HttpStatus.OK).json({
+        status: HttpStatus.OK,
+        message: 'success',
+        data: result,
+      });
+    } catch (e) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        status: HttpStatus.BAD_REQUEST,
+        message: e.message,
+      });
+    }
+  }
+
+  @Put('patrol')
+  async changePatrolStatus(
+    @Res() res: Response,
+    @Body() groupInfo: GroupPatrolDto,
+  ) {
+    try {
+      const result = await this.groupService.changePatrolStatus(groupInfo);
       return res.status(HttpStatus.OK).json({
         status: HttpStatus.OK,
         message: 'success',

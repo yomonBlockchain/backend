@@ -54,7 +54,7 @@ export class JoinGroupDto {
   guard_id: string;
 }
 
-export class CountGroupPatrolDto {
+export class GroupPatrolDto {
   @IsString()
   @IsNotEmpty()
   target_group_id: string;

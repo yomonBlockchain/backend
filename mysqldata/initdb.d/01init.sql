@@ -106,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `isguard`.`t_group` (
   `group_member` TEXT,
   `group_desc` TEXT,
   `is_part` TINYINT NOT NULL DEFAULT 0,
+  `patrol_status` TINYINT NOT NULL DEFAULT 0,
   `group_count_patrol` INT DEFAULT 0, 
   PRIMARY KEY (`group_id`),
   INDEX `fk_t_group_t_guard1_idx` (`group_leader_id` ASC) VISIBLE,
